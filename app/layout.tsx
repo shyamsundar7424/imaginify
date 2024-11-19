@@ -1,36 +1,45 @@
-import type { Metadata } from "next";
+// app/layout.tsx (or _app.tsx)
 import { IBM_Plex_Sans } from "next/font/google";
-import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
-import Head from "next/head"; // Import Head component
-
+import { cn } from "@/lib/utils";
 import "./globals.css";
 
-const IBMPlex = IBM_Plex_Sans({ 
+// IBM Plex font configuration
+const IBMPlex = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-ibm-plex'
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex",
 });
 
-export const metadata: Metadata = {
+// Define metadata for the app
+export const metadata = {
   title: "ImageWorld",
   description: "AI-powered image generator",
+  icons: {
+    icon: "/logo.svg", // Path to your favicon
+  },
+  openGraph: {
+    title: "ImageWorld",
+    description: "AI-powered image generator",
+    url: "https://yourwebsite.com",
+    siteName: "ImageWorld",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@yourtwitterhandle",
+    title: "ImageWorld",
+    description: "AI-powered image generator",
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <ClerkProvider appearance={{
-      variables: { colorPrimary: '#624cf5' }
-    }}>
+    <ClerkProvider appearance={{ variables: { colorPrimary: "#624cf5" } }}>
       <html lang="en">
-        <Head>
-          {/* Add link to favicon.ico */}
-          <link rel="icon" href="/logo.svg" />
-        </Head>
         <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
           {children}
         </body>
