@@ -11,9 +11,11 @@ declare global {
   var mongoose: MongooseConnection | undefined;
 }
 
-let cached: MongooseConnection = global.mongoose || { conn: null, promise: null };
+// Use const since cached is not reassigned
+const cached: MongooseConnection = global.mongoose || { conn: null, promise: null };
 
-if (!cached) {
+// Initialize global.mongoose if it's not already set
+if (!global.mongoose) {
   global.mongoose = cached;
 }
 
